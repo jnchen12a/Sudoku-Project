@@ -2,6 +2,5 @@
 from sudoku_generator import SudokuGenerator
 
 sudoku = SudokuGenerator(9, 0)
-print(sudoku.valid_in_col(1, 0))
-print(sudoku.valid_in_box(3, 3, 6))
+print(sudoku.is_valid(0, 0, 3))
 sudoku.print_board()
