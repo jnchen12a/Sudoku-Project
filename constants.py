@@ -1,1 +1,4 @@
 WHITE = (250, 250, 250)
+BLACK = (0, 0, 0)
+WIDTH = 600
+LENGTH = 600
