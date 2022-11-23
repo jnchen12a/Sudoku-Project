@@ -11,11 +11,6 @@ def draw_start_screen(screen):
   title_rect = title_surf.get_rect(center=(WIDTH // 2, (LENGTH // 2) - 150))
   screen.blit(title_surf, title_rect)
 
-  while True:
-    for event in pygame.event.get():
-      if event.type == pygame.QUIT:
-        pygame.quit()
-
 def draw_difficulty_screen(screen):
   pass
 
@@ -31,9 +26,7 @@ if __name__ == '__main__':
   screen = pygame.display.set_mode((WIDTH, LENGTH)) # Size of the display
   # screen.fill(WHITE)
 
-  print('Hello')
   draw_start_screen(screen)
-  print('world')
   
   while True: # Event loop
     for event in pygame.event.get():

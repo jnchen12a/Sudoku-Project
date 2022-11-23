@@ -12,5 +12,5 @@ class Cell:
   def set_sketched_value(self, value):
     self.value = value
 
-  def draw(self): # FIXME: Finish this module
+  def draw(self): # FIXME: Finish this method
     pass
