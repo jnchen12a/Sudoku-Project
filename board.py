@@ -23,7 +23,7 @@ class Board:
     count = 1
     for i in range(10):
       LINE_WIDTH = BOLD_WIDTH if count == 1 else THIN_WIDTH
-      pygame.draw.line(self.screen, BLACK, (SQUARE_SIZE * i, 0), (SQUARE_SIZE * i, LENGTH), LINE_WIDTH)
+      pygame.draw.line(self.screen, BLACK, (SQUARE_SIZE * i, 0), (SQUARE_SIZE * i, BOARD_LENGTH), LINE_WIDTH)
       if count == 3:
         count = 1
       else:
@@ -44,7 +44,13 @@ class Board:
     pygame.draw.line(self.screen, RED, end_coordinate_top, end_coordinate_bottom, HIGHLIGHT_WIDTH)
 
   def click(self, x, y):
-    pass
+    x = x // SQUARE_SIZE
+    if y > 450:
+      return None
+    else:
+      y = y // SQUARE_SIZE
+
+    return (x, y)
 
   def clear(self):
     pass

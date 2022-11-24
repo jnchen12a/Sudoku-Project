@@ -20,7 +20,7 @@ def draw_end_screen(screen):
 if __name__ == '__main__':
   pygame.init()
   pygame.display.set_caption('Sudoku') # Title of the window
-  screen = pygame.display.set_mode((WIDTH, LENGTH)) # Size of the display
+  screen = pygame.display.set_mode((WIDTH, SCREEN_LENGTH)) # Size of the display
   # screen.fill(WHITE)
 
   draw_start_screen(screen)
