@@ -11,9 +11,6 @@ def draw_start_screen(screen):
   title_rect = title_surf.get_rect(center=(WIDTH // 2, (LENGTH // 2) - 150))
   screen.blit(title_surf, title_rect)
 
-def draw_difficulty_screen(screen):
-  pass
-
 def draw_game_screen(screen):
   pass
 
