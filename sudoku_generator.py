@@ -225,11 +225,11 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        nums = [i for i in range(1, 82)]
+        nums = [i for i in range(81)]
         for time in range(self.removed_cells):
             number = random.choice(nums)
-            row = int(number // 9) - 1
-            col = int(number % 9) - 1
+            row = int(number // 9)
+            col = int(number % 9)
             self.board[row][col] = 0
             nums.pop(nums.index(number))
 
