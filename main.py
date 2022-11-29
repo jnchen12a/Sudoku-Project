@@ -10,8 +10,15 @@ def draw_start_screen(screen): # Return number of removed cells
   screen.fill(WHITE)
   font = pygame.font.Font(None, 40)
   title_surf = font.render('Sudoku!', 0, BLACK)
-  title_rect = title_surf.get_rect(center=(WIDTH // 2, (LENGTH // 2) - 150))
+  title_rect = title_surf.get_rect(center=(WIDTH // 2, (SCREEN_LENGTH // 2) - 150))
   screen.blit(title_surf, title_rect)
+  while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+
+    pygame.display.update()
+  return 30
 
 def draw_game_screen(screen, board):
   # Use draw() method from Board class
@@ -54,7 +61,6 @@ def draw_game_screen(screen, board):
   screen.blit(restart_surface, restart_rectangle)
   screen.blit(exit_surface, exit_rectangle)
   screen.blit(finish_surface, finish_rectangle)
-  # print(reset_text.get_size()[0], reset_text.get_size()[1])
 
   while True:
     for event in pygame.event.get():
@@ -68,12 +74,14 @@ def draw_game_screen(screen, board):
         if restart_rectangle.collidepoint(event.pos):
           print('Restart')
           pass
-        if exit_surface.collidepoint(event.pos):
-          print('Exit')
+        if exit_rectangle.collidepoint(event.pos):
+          pygame.quit()
           pass
-        if finish_surface.collidepoint(event.pos):
+        if finish_rectangle.collidepoint(event.pos):
           print('Finish')
           pass
+
+    pygame.display.update()
 
 def draw_win_screen(screen):
   # Initialize Title Fonts
@@ -105,7 +113,7 @@ def draw_win_screen(screen):
   # While loop waiting for user input
   while True:
       for event in pygame.event.get():
-          if event == pygame.QUIT:
+          if event.type == pygame.QUIT:
               sys.exit()
           if event.type == pygame.MOUSEBUTTONDOWN:
               if exit_rectangle.collidepoint(event.pos):
@@ -143,7 +151,7 @@ def draw_lost_screen(screen):
   # While loop waiting for user input
   while True:
       for event in pygame.event.get():
-          if event == pygame.QUIT:
+          if event.type == pygame.QUIT:
               sys.exit()
           if event.type == pygame.MOUSEBUTTONDOWN:
               if restart_rectangle.collidepoint(event.pos):
@@ -159,7 +167,7 @@ if __name__ == '__main__':
   # After user chooses difficulty
   
   while True: # Event loop
-    num_removed_cells = 30 # draw_start_screen(screen) # Update this
+    num_removed_cells = draw_start_screen(screen)
     board, removed_cells = generate_sudoku(9, num_removed_cells)
     original_board = board[:]
 
