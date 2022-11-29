@@ -14,8 +14,8 @@ class Cell:
     self.sketched_value = value
 
   def draw(self): # FIXME: Finish this method
-    main.py
-    
+    # Draw self.value
+    pass
   
   def sketch(self):
     pass
