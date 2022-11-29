@@ -11,7 +11,7 @@ screen.fill((255, 255, 245)) # Makes screen white, in rgb, https://www.google.co
 
 board = Board(WIDTH, BOARD_LENGTH, screen, 1)
 board.draw()
-board.select(2, 2)
+board.select(3, 3)
 
 while True:
     for event in pygame.event.get():

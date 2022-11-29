@@ -226,12 +226,15 @@ class SudokuGenerator:
     '''
     def remove_cells(self):
         nums = [i for i in range(81)]
+        removed_cells = []
         for time in range(self.removed_cells):
             number = random.choice(nums)
             row = int(number // 9)
             col = int(number % 9)
             self.board[row][col] = 0
-            nums.pop(nums.index(number))
+            removed_number = nums.pop(nums.index(number))
+            removed_cells.append(removed_number)
+        return removed_cells
 
 '''
 DO NOT CHANGE
@@ -252,6 +255,6 @@ def generate_sudoku(size, removed):
     sudoku = SudokuGenerator(size, removed)
     sudoku.fill_values()
     board = sudoku.get_board()
-    sudoku.remove_cells()
+    removed_cells = sudoku.remove_cells()
     board = sudoku.get_board()
-    return board
+    return board, removed_cells

@@ -1,13 +1,15 @@
 # Board Class
 # FIXME: Finish the rest of this class
 from constants import *
+from cell import Cell
 import pygame
 class Board:
-  def __init__(self, width, height, screen, difficulty):
+  def __init__(self, width, height, screen, difficulty, original):
     self.width = width
     self.height = height
     self.screen = screen
     self.difficulty = difficulty
+    self.original = original
   def draw(self):
     # Horizontal lines
     count = 1
@@ -52,25 +54,35 @@ class Board:
 
     return (x, y)
 
-  def clear(self):
-    pass
+  def clear(self, cell, removed_cells):
+    id = (cell.row * 9) + (cell.col * 9)
+    if id in removed_cells:
+      return None
+    else:
+      cell.set_cell_value(0)
+      return True
     
-  def sketch(self, value):
-      pass
-
   def place_number(self, value):
     pass
 
-  def reset_to_original(self):
+  def reset_to_original(self, cell_list):
+    for row_num, row in enumerate(cell_list):
+      for col_num, cell in enumerate(row):
+        cell.set_cell_value(self.original[row_num][col_num])
+
+    return True
+
+  def is_full(self, cell_list):
+    for row in cell_list:
+      for cell in row:
+        if cell.value == 0:
+          return False
+
+    return True
+  def update_board(self): # Don't need?
     pass
 
-  def is_full(self):
-    pass
-
-  def update_board(self):
-    pass
-
-  def find_empty(self):
+  def find_empty(self): # Don't need?
     pass
 
   def check_board(self):
