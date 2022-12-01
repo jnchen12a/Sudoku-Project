@@ -31,7 +31,16 @@ class Board:
       else:
         count += 1
 
-  def select(self, row, col):
+  def select(self, row, col, removed_cells):
+    if row == None:
+      return
+    if col == None:
+      return
+    if row > 9:
+      return
+    id = (row * 9) + col
+    if id not in removed_cells:
+      return
     start_coordinate_top = ((SQUARE_SIZE * col) + 4, (SQUARE_SIZE * row) + 4)
     end_coordinate_top = ((SQUARE_SIZE * (col + 1)) - 4, (SQUARE_SIZE * row) + 4)
     start_coordinate_bottom = ((SQUARE_SIZE * col) + 4, (SQUARE_SIZE * (row + 1)) - 4)
@@ -85,5 +94,46 @@ class Board:
   def find_empty(self): # Don't need?
     pass
 
-  def check_board(self):
-    pass
+  def valid_in_row(self, row, num, cell_list):
+    count = 0
+    for cell in cell_list[row]:
+      if num == cell.value:
+        count += 1
+    if count == 1:
+      return True
+    else:
+      return False
+
+  def valid_in_col(self, col, num, cell_list):
+    count = 0
+    for board_row in cell_list: # Loops through each row
+      if board_row[int(col)].value == num: # Checks if column matching index contains num
+        count += 1
+    if count == 1:
+      return True
+    else:
+      return False
+
+  def valid_in_box(self, row_start, col_start, num, cell_list):
+    count = 0
+    for row in range(row_start, row_start + 3):
+      for column in range(int(col_start), int(col_start + 3)):
+        if cell_list[row][column].value == num:
+          count += 1
+    if count == 1:
+      return True
+    else:
+      return False
+
+  def check_board(self, cell_list): # False if it is incorrect, True if it is correct
+    for row_num, row in enumerate(cell_list):
+      for col_num, cell in enumerate(row):
+        num = cell.value
+        row_start = int(row_num // 3) * 3
+        col_start = int(col_num // 3) * 3
+        if self.valid_in_row(row_num, num, cell_list) and self.valid_in_col(col_num, num, cell_list) and self.valid_in_box(row_start, col_start, num, cell_list):
+          pass
+        else:
+          return False
+
+    return True
