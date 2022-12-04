@@ -78,6 +78,7 @@ class Board:
     for row_num, row in enumerate(cell_list):
       for col_num, cell in enumerate(row):
         cell.set_cell_value(self.original[row_num][col_num])
+        cell.set_sketched_value(0)
 
     return True
 

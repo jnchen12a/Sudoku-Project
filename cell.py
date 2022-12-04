@@ -23,7 +23,8 @@ class Cell:
     self.sketched_value = 0
 
   def set_cell_value(self, value):
-    self.value = value
+    if value <= 9:
+      self.value = value
 
   def set_sketched_value(self, value):
     self.sketched_value = value

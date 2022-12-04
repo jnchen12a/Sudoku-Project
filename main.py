@@ -93,6 +93,7 @@ def draw_game_screen(screen, board):
 
 
   while True:
+    used = False
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         pygame.quit()
@@ -108,6 +109,11 @@ def draw_game_screen(screen, board):
         pos = pygame.mouse.get_pos()
         x, y = get_cord(pos)
       if event.type == pygame.KEYDOWN:
+        if x == None or y == None:
+          used = True
+        default_cell_y, default_cell_x = (removed_cells[0] // 9), (removed_cells[0] % 9)
+        x = default_cell_x if x == None else x
+        y = default_cell_y if y == None else y
         id = (y * 9) + x
         if event.key == pygame.K_1:
           if id in removed_cells:
@@ -141,13 +147,17 @@ def draw_game_screen(screen, board):
             cell_list[int(y)][int(x)].set_cell_value(cell_list[int(y)][int(x)].sketched_value)
             cell_list[int(y)][int(x)].set_sketched_value(0)
         if event.key == pygame.K_UP:
-          y = y - 1 if y != 0 else 0
+          if not used:
+            y = y - 1 if y != 0 else 0
         if event.key == pygame.K_DOWN:
-          y = y + 1 if y != 8 else 8
+          if not used:
+            y = y + 1 if y != 8 else 8
         if event.key == pygame.K_RIGHT:
-          x = x + 1 if x != 8 else 8
+          if not used:
+            x = x + 1 if x != 8 else 8
         if event.key == pygame.K_LEFT:
-          x = x - 1 if x != 0 else 0
+          if not used:
+            x = x - 1 if x != 0 else 0
 
     screen.fill(WHITE)
   
@@ -188,7 +198,12 @@ def draw_game_screen(screen, board):
       for col, cell in enumerate(row):
         cell.sketch_sketched_num(row_num, col, screen)
         cell.sketch_num(row_num, col, screen)
+    
     pygame.display.update()
+    
+    if sudoku_board.is_full(cell_list):
+      pygame.time.wait(1500)
+      return 'finish'
 
 def draw_win_screen(screen):
   # Initialize Title Fonts
@@ -287,7 +302,6 @@ if __name__ == '__main__':
         temp_list.append(Cell(number, row_num, col_num, screen))
 
       cell_list.append(temp_list)
-
     choice = draw_game_screen(screen, sudoku_board)
 
     if choice == 'restart':
@@ -300,12 +314,5 @@ if __name__ == '__main__':
           draw_lost_screen(screen)
       else:
         draw_lost_screen(screen)
-
-    # while True:
-    #   for event in pygame.event.get():
-    #     if event.type == pygame.QUIT: # Quitting out
-    #       pygame.quit()
-    
-    # pygame.display.update() # Updating display
 
       
